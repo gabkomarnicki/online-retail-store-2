@@ -1,8 +1,12 @@
 package com.csci318.onlineretailstore2;
 
+import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class CustomerController {
@@ -24,10 +28,18 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/{id}")
-    Customer one(@PathVariable Long id) {
+    //Customer one(@PathVariable Long id) {
+    EntityModel<Customer> one(@PathVariable Long id) {
 
-        return repository.findById(id)
+//        return repository.findById(id)
+//                .orElseThrow(() -> new CustomerNotFoundException(id));
+
+        Customer customer = repository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException(id));
+
+        return EntityModel.of(customer, //
+                linkTo(methodOn(CustomerController.class).one(id)).withSelfRel(),
+                linkTo(methodOn(CustomerController.class).all()).withRel("customers"));
     }
 
     @PutMapping("/customers/{id}")
