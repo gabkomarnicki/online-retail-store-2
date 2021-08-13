@@ -14,23 +14,18 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class CustomerController {
 
     private final CustomerRepository repository;
+    private final CustomerModelAssembler assembler;
 
-    public CustomerController(CustomerRepository repository) {
+    public CustomerController(CustomerRepository repository, CustomerModelAssembler assembler) {
         this.repository = repository;
+        this.assembler = assembler;
     }
 
     @GetMapping("/customers")
-//    List<Customer> all() {
-//        return repository.findAll();
-//    }
     CollectionModel<EntityModel<Customer>> all() {
 
         List<EntityModel<Customer>> customers = repository.findAll().stream()
-            .map(customer -> EntityModel.of(customer,
-
-        linkTo(methodOn(CustomerController.class).one(customer.getId())).withSelfRel(),
-
-        linkTo(methodOn(CustomerController.class).all()).withRel("customers")))
+            .map(assembler::toModel)
             .collect(Collectors.toList());
 
         return CollectionModel.of(customers,
@@ -43,18 +38,12 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/{id}")
-    //Customer one(@PathVariable Long id) {
     EntityModel<Customer> one(@PathVariable Long id) {
 
-//        return repository.findById(id)
-//                .orElseThrow(() -> new CustomerNotFoundException(id));
-
         Customer customer = repository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException(id));
+            .orElseThrow(() -> new CustomerNotFoundException(id));
 
-        return EntityModel.of(customer, //
-                linkTo(methodOn(CustomerController.class).one(id)).withSelfRel(),
-                linkTo(methodOn(CustomerController.class).all()).withRel("customers"));
+        return assembler.toModel(customer);
     }
 
     @PutMapping("/customers/{id}")
