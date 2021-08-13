@@ -1,9 +1,11 @@
 package com.csci318.onlineretailstore2;
 
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -18,8 +20,21 @@ public class CustomerController {
     }
 
     @GetMapping("/customers")
-    List<Customer> all() {
-        return repository.findAll();
+//    List<Customer> all() {
+//        return repository.findAll();
+//    }
+    CollectionModel<EntityModel<Customer>> all() {
+
+        List<EntityModel<Customer>> customers = repository.findAll().stream()
+            .map(customer -> EntityModel.of(customer,
+
+        linkTo(methodOn(CustomerController.class).one(customer.getId())).withSelfRel(),
+
+        linkTo(methodOn(CustomerController.class).all()).withRel("customers")))
+            .collect(Collectors.toList());
+
+        return CollectionModel.of(customers,
+        linkTo(methodOn(CustomerController.class).all()).withSelfRel());
     }
 
     @PostMapping("/customers")
