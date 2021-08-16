@@ -18,7 +18,7 @@ Output:
 
 ### 3. Update a customer
 ```
-curl -X PUT localhost:8080/customers/3 -H 'Co-type:application/json' -d '{"companyName": "XYZ Company", "address": "246 First St", "country": "Portugal"}'
+curl -X PUT localhost:8080/customers/3 -H 'Content-type:application/json' -d '{"companyName": "XYZ Company", "address": "246 First St", "country": "Portugal"}'
 ```
 Output:
 ```
