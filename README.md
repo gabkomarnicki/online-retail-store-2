@@ -54,7 +54,13 @@ curl -X POST localhost:8080/customers -H "Content-Type:application/json" -d '{"c
 ```
 Output:
 ```
-{"id":3,"companyName":"XYZ Company","address":"246 First St","country":"Spain"}
+{
+  "id": 3,
+  "companyName": "XYZ Company",
+  "address": "246 First St",
+  "country": "Spain"
+}
+
 ```
 
 ### 3. Update a customer
