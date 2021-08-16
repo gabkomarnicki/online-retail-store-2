@@ -37,20 +37,6 @@ Output:
             "href": "http://localhost:8080/customers"
           }
         }
-      },
-      {
-        "id": 3,
-        "companyName": "XYZ Company",
-        "address": "246 First St",
-        "country": "Portugal",
-        "_links": {
-          "self": {
-            "href": "http://localhost:8080/customers/3"
-          },
-          "customers": {
-            "href": "http://localhost:8080/customers"
-          }
-        }
       }
     ]
   },
@@ -83,4 +69,13 @@ Output:
   "address": "221A Baker St",
   "country": "Switzerland"
 }
+```
+
+### 4. Delete a customer
+```
+curl -X DELETE http://localhost:8080/customers/3
+```
+Output:
+```
+No body returned for response
 ```
