@@ -1,5 +1,7 @@
-package com.csci318.onlineretailstore2;
+package com.csci318.onlineretailstore2.controllers;
 
+import com.csci318.onlineretailstore2.models.Customer;
+import com.csci318.onlineretailstore2.repositories.CustomerRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;

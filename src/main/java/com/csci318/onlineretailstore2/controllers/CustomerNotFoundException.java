@@ -1,4 +1,4 @@
-package com.csci318.onlineretailstore2;
+package com.csci318.onlineretailstore2.controllers;
 
 public class CustomerNotFoundException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package com.csci318.onlineretailstore2;
+package com.csci318.onlineretailstore2.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

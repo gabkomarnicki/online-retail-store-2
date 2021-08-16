@@ -1,4 +1,4 @@
-package com.csci318.onlineretailstore2;
+package com.csci318.onlineretailstore2.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;

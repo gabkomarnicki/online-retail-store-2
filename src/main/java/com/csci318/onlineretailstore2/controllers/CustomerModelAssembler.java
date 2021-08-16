@@ -1,5 +1,6 @@
-package com.csci318.onlineretailstore2;
+package com.csci318.onlineretailstore2.controllers;
 
+import com.csci318.onlineretailstore2.models.Customer;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
